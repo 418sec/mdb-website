@@ -12,12 +12,12 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    minlength: 5,
+    minlength: 8,
     required: true,
   },
   role: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: "subscriber",
   },
   image: String,
   token: {
