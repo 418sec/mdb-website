@@ -26,15 +26,15 @@ const registerController = async (req, res) => {
   }
 };
 
-const loginController = async (req, res) => {
-  const user = await User.findOne({ username: req.body.username });
-  if (!user) {
-    return res.json({
-      loginSuccess: false,
-      message: "User does not exist.",
-    });
-  }
-  if (user) {
+const loginController = (req, res) => {
+  User.findOne({ username: req.body.username })
+  .then(user => {
+    if (!user) {
+      return res.json({
+        loginSuccess: false,
+        message: "User does not exist.",
+      });
+    }
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (!isMatch) {
         return res
@@ -54,11 +54,38 @@ const loginController = async (req, res) => {
         }
       });
     });
-  } else {
+  })
+  .catch(error => {
     return res
       .status(500)
       .json({ loginSuccess: false, message: "Something wrong with database." });
-  }
+  })
+
 };
 
-module.exports = { registerController, loginController };
+const me = async (req, res) => {
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === "subscriber" ? false : true,
+    isAuth: true,
+    username: req.user.username,
+    role: req.user.role,
+    image: req.user.image,
+  });
+};
+
+const logOutController = (req, res) => {
+  User.findById(req.user._id)
+  .then(user => {
+    if (user) {
+      user.token = ""
+      user.tokenExp = ""
+      user.save();
+      res.status(200).json({success: true});
+    }
+  })
+ 
+    
+};
+
+module.exports = { registerController, loginController, me, logOutController };

@@ -1,24 +1,27 @@
-const { User } = require("../models/user.model");
+const jwt = require('jsonwebtoken');
 
-const auth = async (req, res, next) => {
-  const token = req.cookies.w_auth;
-  const user = await User.findByToken(token);
-  if (user) {
-    req.token = token;
-    req.user = user;
-    next();
-  }
-  if (!user) {
-    return res.json({
-      isAuth: false,
-      message: "Not authorized",
+const isAuth = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token) {
+    const onlyToken = token.slice(7, token.length);
+    jwt.verify(onlyToken, 'secret', (err, decode) => {
+      if (err) {
+        return res.status(401).json({ msg: "Invalid Token" });
+      }
+      req.user = decode;
+      next();
+      return;
     });
   } else {
-    return res.status(500).json({
-      isAuth: false,
-      message: "Something went wrong.",
-    });
+    return res.status(401).json({ msg: "Token is not supplied." });
   }
 };
 
-module.exports = { auth };
+const isAdmin = (req, res, next) => {
+  if (req.user && req.user.role == "admin") {
+    return next();
+  }
+  return res.status(401).json({ msg: "Admin Token is not valid." });
+};
+
+module.exports = { isAuth, isAdmin};
