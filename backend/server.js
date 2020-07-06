@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 
 const configs = require("./configs/key");
 const userRouter = require('./routes/user.route');
+const commentRouter = require('./routes/comment.route');
 
 // Config .env to ./config/config.env
 dotenv.config({
@@ -47,6 +48,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use('/api/users', userRouter);
+app.use('/api/comment', commentRouter);
 
 const port = process.env.PORT || 5000;
 
