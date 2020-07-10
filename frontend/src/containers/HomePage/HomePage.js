@@ -30,13 +30,13 @@ const HomePage = () => {
   const [CurrentPage, setCurrentPage] = useState(0);
   const [searching, setSearching] = useState(false);
 
-  const fetchMovies = (url) => {
+  const fetchMovies = (url, index) => {
     setLoading(true);
     fetch(url)
       .then((result) => result.json())
       .then((result) => {
         setMovies([...Movies, ...result.results]);
-        setMainMovieImage(MainMovieImage || result.results[0]);
+        setMainMovieImage(MainMovieImage || result.results[index]);
         setCurrentPage(result.page);
         setLoading(false)
       })
@@ -59,8 +59,8 @@ const HomePage = () => {
 
   useEffect(() => {
     const url = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-
-    fetchMovies(url);
+    const index = Math.floor(Math.random(0, 1) * 19);
+    fetchMovies(url, index);
   }, []);
 
   return (
@@ -68,6 +68,8 @@ const HomePage = () => {
     {Loading ?  <ClipLoader css={loaderCSS} size={90} loading /> : <div style={{ width: "100%", margin: "0" }}>
         {MainMovieImage && (
           <ImageSection
+            genres={MainMovieImage.genres}
+            tagline = {MainMovieImage.tagline}
             image={`${IMAGE_BASE_URL}${IMAGE_SIZE}${MainMovieImage.backdrop_path}`}
             title={MainMovieImage.original_title}
             text={MainMovieImage.overview}

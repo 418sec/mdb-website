@@ -61,3 +61,16 @@ input.error {
 .searchTerm:focus{
   color: black;
 }
+.loadMore {
+  position: relative;
+  bottom: 40px;
+}
+
+.imdb-btn {
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.imdb-btn:hover {
+  background-color: aqua;
+}

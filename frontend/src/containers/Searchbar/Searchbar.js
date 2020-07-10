@@ -34,7 +34,7 @@ const SearchBar = React.memo((props) => {
 
   return (
     <div className="search-bar">
-    <h2>Search For Movies</h2>
+    <h3 style={{textTransform: 'uppercase'}}>Search For Movies</h3>
       <form onSubmit={submitHandler}>
         <input
           className="searchTerm"
