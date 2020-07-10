@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
@@ -35,5 +36,28 @@ input.error {
 .input-feedback {
   color: red;
   height: 5px;
-  margin-top: 5px;
+  margin-top: -12px;
+}
+
+.search-bar {
+  justify-content: center;
+  text-align: center;
+  color: black;
+}
+.search-btn:hover {
+  background-color: black;
+  color: #fff;
+}
+.searchTerm {
+  width: 50%;
+  border: 2px solid #00B4CC;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+  height: 100%;
+}
+.searchTerm:focus{
+  color: black;
 }

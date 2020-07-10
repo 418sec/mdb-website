@@ -6,18 +6,20 @@ import Navbar from "./components/UI/Navbar/NavBar";
 import Footer from "./components/UI/Footer/Footer";
 import SignUp from "./containers/Auth/SignUp/SignUp";
 import SignIn from "./containers/Auth/SignIn/SignIn";
+import HomePage from "./containers/HomePage/HomePage";
 
 const App = () => {
   return (
     <React.Fragment>
-      <div>
+      <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
         <Navbar />
         <Switch>
+          <Route exact path="/" component={HomePage} />
           <Route exact path="/register" component={SignUp} />
           <Route exact path="/login" component={SignIn} />
         </Switch>
       </div>
-      <Footer />
+     
     </React.Fragment>
   );
 };

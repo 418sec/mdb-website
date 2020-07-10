@@ -3,7 +3,10 @@
 .menu {
   padding: 0 20px;
   border-bottom: solid 1px #e8e8e8;
+  overflow: auto;
+  box-shadow: 0 0 30px #f3f1f1;
   background-color: black;
+  top:-1px
 }
 
 .menu__logo {
@@ -19,10 +22,12 @@
 
 .menu__container .ant-menu-item {
   padding: 0px 5px;
+  background-color: black;
 }
 
 .menu__container .ant-menu-submenu-title {
   padding: 10px 20px;
+  background-color: black;
 }
 
 .menu__container .ant-menu-item a,
@@ -36,20 +41,15 @@
   background-color: black;
 }
 
-.menu_left {
+.menu__container .menu_left {
   float: left;
-  margin-top: 13px;
-  margin-left: 50px;
+  margin-top: 14px;
 }
-
-
 
 .menu__container .menu_rigth {
   float: right;
-  margin-top: 13px;
-
+  margin-top: 14px;
 }
-
 
 .menu__mobile-button {
   float: right;
@@ -81,7 +81,6 @@
 
   .menu__logo a {
     margin-left: -20px;
-    width: 10px;
   }
 
   .menu__container .ant-menu-item,
