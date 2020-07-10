@@ -32,14 +32,14 @@ const loginController = (req, res) => {
     if (!user) {
       return res.json({
         loginSuccess: false,
-        message: "User does not exist.",
+        error: "User does not exist.",
       });
     }
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (!isMatch) {
         return res
           .status(400)
-          .json({ loginSuccess: false, message: "Wrong password" });
+          .json({ loginSuccess: false, error: "Wrong password" });
       }
       user.generateToken((err, user) => {
         if (err) {
@@ -58,7 +58,7 @@ const loginController = (req, res) => {
   .catch(error => {
     return res
       .status(500)
-      .json({ loginSuccess: false, message: "Something wrong with database." });
+      .json({ loginSuccess: false, error: "Something wrong with database." });
   })
 
 };

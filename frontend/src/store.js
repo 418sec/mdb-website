@@ -2,10 +2,11 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import promiseMiddleware from 'redux-promise';
 
-import { userSignupReducer } from './reducers/userReducer';
+import { userSignupReducer, userSigninReducer } from './reducers/userReducer';
 
 const reducer = combineReducers({
-    userRegister: userSignupReducer
+    userRegister: userSignupReducer,
+    userSignIn: userSigninReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
