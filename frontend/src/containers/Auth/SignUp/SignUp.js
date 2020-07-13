@@ -41,13 +41,13 @@ const SignUp = (props) => {
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister);
   const loading = userRegister.loading;
-  const error = userRegister.error;
   const register = userRegister.register;
   if (register) {
     if (register.success) {
       props.history.push("/login");
     }
   }
+  console.log(userRegister);
 
   return (
     <Formik
@@ -99,8 +99,16 @@ const SignUp = (props) => {
               <React.Fragment>
                 {" "}
                 <h1 style={{ marginBottom: "20px" }}>SIGN UP</h1>
-                {error ? (
-                  <h2 style={{ textAlign: "center", color: "red" }}>{error}</h2>
+                {userRegister.error !== undefined &&
+                userRegister.error.response === undefined ? (
+                  <h2 style={{ textAlign: "center", color: "red" }}>
+                    {userRegister.error.message}
+                  </h2>
+                ) : null}
+                {userRegister.error ? (
+                  <h2 style={{ textAlign: "center", color: "red" }}>
+                    {userRegister.error.response.data.error}
+                  </h2>
                 ) : null}
                 <Form
                   style={{ minWidth: "375px" }}

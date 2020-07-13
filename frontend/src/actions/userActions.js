@@ -22,7 +22,7 @@ const registerUser = (dataToSubmit) => async (dispatch) => {
     const response = await axios.post(`${USER_SERVER}/register`, dataToSubmit);
     dispatch({ type: USER_SIGNUP_SUCCESS, payload: response.data });
   } catch (error) {
-    dispatch({ type: USER_SIGNUP_FAIL, payload: error.response.data.error });
+    dispatch({ type: USER_SIGNUP_FAIL, payload: error });
   }
 };
 
@@ -30,12 +30,11 @@ const signInUser = (dataToSubmit) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST, payload: dataToSubmit });
   try {
     const response = await axios.post(`${USER_SERVER}/login`, dataToSubmit);
-    console.log(response);
     localStorage.setItem("userId", response.data.userId);
     localStorage.setItem("token", response.data.token);
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: response.data });
   } catch (error) {
-    dispatch({ type: USER_SIGNIN_FAIL, payload: error.response.data.error });
+    dispatch({ type: USER_SIGNIN_FAIL, payload: error });
   }
 };
 
@@ -48,7 +47,7 @@ const me = (token) => async (dispatch) => {
     console.log(response.data);
     dispatch({ type: USER_AUTH_SUCCESS, payload: response.data });
   } catch (error) {
-    dispatch({ type: USER_AUTH_FAIL, payload: error.response.data.msg });
+    dispatch({ type: USER_AUTH_FAIL, payload: error });
   }
 };
 
@@ -63,7 +62,7 @@ const signOut = (token) => async (dispatch) => {
     window.location.reload(false);
     dispatch({ type: USER_SIGNOUT_SUCCESS, payload: response.data });
   } catch (error) {
-    dispatch({ type: USER_SIGNOUT_FAIL, payload: error.response });
+    dispatch({ type: USER_SIGNOUT_FAIL, payload: error });
   }
 };
 

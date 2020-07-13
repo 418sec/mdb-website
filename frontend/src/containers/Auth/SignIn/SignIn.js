@@ -17,17 +17,15 @@ const loaderCSS = css`
 const SignIn = (props) => {
   const dispatch = useDispatch();
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
-  
+
   const [username, setUsername] = useState("");
   const [rememberMe, setRememberMe] = useState(rememberMeChecked);
   const userSignIn = useSelector((state) => state.userSignIn);
   const handleRememberMe = () => {
     setRememberMe(!rememberMe);
   };
-  
-  const result = userSignIn.result;
-  if (result) {
-    if (result.loginSuccess) {
+  if (userSignIn.result) {
+    if (userSignIn.result.loginSuccess) {
       if (rememberMe === true) {
         localStorage.setItem("rememberMe", username);
       } else {
@@ -36,7 +34,7 @@ const SignIn = (props) => {
       return <Redirect to="/" />;
     }
   }
-
+  //console.log(userSignIn)
   const initialUsername = localStorage.getItem("rememberMe")
     ? localStorage.getItem("rememberMe")
     : "";
@@ -81,14 +79,21 @@ const SignIn = (props) => {
             ) : (
               <React.Fragment>
                 <h1 style={{ marginBottom: "30px" }}>SIGN IN</h1>
-                {userSignIn ? (
+                {userSignIn.result && !userSignIn.result.loginSuccess ? (
                   <h2 style={{ textAlign: "center", color: "red" }}>
-                    {userSignIn.error}
+                    {userSignIn.result.error}
                   </h2>
                 ) : null}
-                {result !== undefined && result.error ? (
+                {userSignIn.error !== undefined &&
+                userSignIn.error.response !== undefined ? (
                   <h2 style={{ textAlign: "center", color: "red" }}>
-                    {result.error}
+                    {userSignIn.error.response.data.error}
+                  </h2>
+                ) : null}
+                {userSignIn.error !== undefined &&
+                userSignIn.error.response === undefined ? (
+                  <h2 style={{ textAlign: "center", color: "red" }}>
+                    {userSignIn.error.message}
                   </h2>
                 ) : null}
 
