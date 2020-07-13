@@ -10,6 +10,7 @@ import MovieInfo from "../../components/MovieDetail/MovieInfo";
 import Card from "../../components/Card/Card";
 import classes from "./MovieDetail.module.css";
 import Favourite from "./Favourite/Favourite";
+import LikeDislikes from "./LikeUnlike/LikeUnlike";
 import { me } from "../../actions/userActions";
 const loaderCSSForDetail = css`
   position: relative;
@@ -122,6 +123,13 @@ const MovieDetail = (props) => {
               </Row>
             )}
             <br />
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <LikeDislikes
+                video
+                videoId={movieId}
+                userId={localStorage.getItem("userId")}
+              />
+            </div>
           </div>
         </React.Fragment>
       ) : (

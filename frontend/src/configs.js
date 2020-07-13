@@ -1,6 +1,7 @@
 //SERVER ROUTES
 export const FAV_SERVER = 'http://localhost:5000/api/favourite';
 export const USER_SERVER = 'http://localhost:5000/api/users';
+export const LIKE_SERVER = 'http://localhost:5000/api/like';
 
 
 
