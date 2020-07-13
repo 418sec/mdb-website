@@ -5,6 +5,12 @@ import {
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
   USER_SIGNIN_FAIL,
+  USER_AUTH_REQUEST,
+  USER_AUTH_SUCCESS,
+  USER_AUTH_FAIL,
+  USER_SIGNOUT_REQUEST,
+  USER_SIGNOUT_SUCCESS,
+  USER_SIGNOUT_FAIL
 } from "../constants/userConstants";
 
 const userSignupReducer = (state = {}, action) => {
@@ -33,4 +39,34 @@ const userSigninReducer = (state = {}, action) => {
   }
 };
 
-export { userSignupReducer, userSigninReducer };
+const userAuthReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_AUTH_REQUEST:
+      return { loading: true };
+    case USER_AUTH_SUCCESS:
+      return { loading: false, userData: action.payload };
+    case USER_AUTH_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+const userSignOutReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_SIGNOUT_REQUEST:
+      return { loading: true };
+    case USER_SIGNOUT_SUCCESS:
+      return { loading: false, result: action.payload };
+    case USER_SIGNOUT_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export {
+  userSignupReducer,
+  userSigninReducer,
+  userAuthReducer,
+  userSignOutReducer,
+};

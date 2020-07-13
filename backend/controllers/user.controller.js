@@ -28,42 +28,41 @@ const registerController = async (req, res) => {
 
 const loginController = (req, res) => {
   User.findOne({ username: req.body.username })
-  .then(user => {
-    if (!user) {
-      return res.json({
-        loginSuccess: false,
-        error: "User does not exist.",
-      });
-    }
-    user.comparePassword(req.body.password, (err, isMatch) => {
-      if (!isMatch) {
-        return res
-          .status(400)
-          .json({ loginSuccess: false, error: "Wrong password" });
+    .then((user) => {
+      if (!user) {
+        return res.json({
+          loginSuccess: false,
+          error: "User does not exist.",
+        });
       }
-      user.generateToken((err, user) => {
-        if (err) {
-          return res.status(400).send(err);
+      user.comparePassword(req.body.password, (err, isMatch) => {
+        if (!isMatch) {
+          return res
+            .status(400)
+            .json({ loginSuccess: false, error: "Wrong password" });
         }
-        if (user) {
-          res.cookie("w_authExp", user.tokenExp);
-          res.cookie("w_auth", user.token).status(200).json({
+        user.generateToken((err, user) => {
+          if (err) {
+            return res.status(400).send(err);
+          }
+
+          res.status(200).json({
             loginSuccess: true,
             userId: user._id,
+            token: user.token,
           });
-        }
+        });
       });
+    })
+    .catch((error) => {
+      return res
+        .status(500)
+        .json({ loginSuccess: false, error: "Something wrong with database." });
     });
-  })
-  .catch(error => {
-    return res
-      .status(500)
-      .json({ loginSuccess: false, error: "Something wrong with database." });
-  })
-
 };
 
 const me = async (req, res) => {
+  console.log(req.user);
   res.status(200).json({
     _id: req.user._id,
     isAdmin: req.user.role === "subscriber" ? false : true,
@@ -75,17 +74,14 @@ const me = async (req, res) => {
 };
 
 const logOutController = (req, res) => {
-  User.findById(req.user._id)
-  .then(user => {
+  User.findById(req.user._id).then((user) => {
     if (user) {
-      user.token = ""
-      user.tokenExp = ""
+      user.token = "";
+      user.isAuth = false;
       user.save();
-      res.status(200).json({success: true});
+      res.status(200).json({ success: true });
     }
-  })
- 
-    
+  });
 };
 
 module.exports = { registerController, loginController, me, logOutController };

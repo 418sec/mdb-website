@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, Redirect } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Form, Input, Button, Checkbox } from "antd";
@@ -17,13 +17,14 @@ const loaderCSS = css`
 const SignIn = (props) => {
   const dispatch = useDispatch();
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
-
+  
   const [username, setUsername] = useState("");
   const [rememberMe, setRememberMe] = useState(rememberMeChecked);
   const userSignIn = useSelector((state) => state.userSignIn);
   const handleRememberMe = () => {
     setRememberMe(!rememberMe);
   };
+  
   const result = userSignIn.result;
   if (result) {
     if (result.loginSuccess) {
@@ -32,14 +33,13 @@ const SignIn = (props) => {
       } else {
         localStorage.removeItem("rememberMe");
       }
-      props.history.push("/");
+      return <Redirect to="/" />;
     }
   }
 
   const initialUsername = localStorage.getItem("rememberMe")
     ? localStorage.getItem("rememberMe")
     : "";
-
   return (
     <Formik
       initialValues={{

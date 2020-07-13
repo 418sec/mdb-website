@@ -9,6 +9,7 @@ const isAuth = (req, res, next) => {
         return res.status(401).json({ msg: "Invalid Token" });
       }
       req.user = decode;
+      req.token = token;
       next();
       return;
     });

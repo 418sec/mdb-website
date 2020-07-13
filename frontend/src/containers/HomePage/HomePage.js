@@ -3,6 +3,8 @@ import { Typography, Row } from "antd";
 import { ClipLoader } from "react-spinners";
 import { css } from "@emotion/core";
 
+import Logo from "../../assets/images/Logo.png"
+
 import {
   API_URL,
   API_KEY,
@@ -26,9 +28,10 @@ const HomePage = () => {
 
   const [Movies, setMovies] = useState([]);
   const [MainMovieImage, setMainMovieImage] = useState(null);
-  const [Loading, setLoading] = useState(true);
+  const [Loading, setLoading] = useState(false);
   const [CurrentPage, setCurrentPage] = useState(0);
   const [searching, setSearching] = useState(false);
+
 
   const fetchMovies = (url, index) => {
     setLoading(true);
@@ -40,16 +43,23 @@ const HomePage = () => {
         setCurrentPage(result.page);
         setLoading(false)
       })
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => setLoading(false));
   };
 
   const loadMoreItems = () => {
     let url = "";
-    setLoading(true);
     url = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
       CurrentPage + 1
     }`;
-    fetchMovies(url);
+    fetch(url)
+    .then((result) => result.json())
+    .then((result) => {
+      setMovies([...Movies, ...result.results]);
+      setCurrentPage(result.page);
+      
+    })
+    .catch((error) => console.log(error));
+    
   };
 
   const filteredMovieHandler = useCallback((filterMovies) => {
@@ -98,7 +108,7 @@ const HomePage = () => {
                     image={
                       movie.poster_path
                         ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
-                        : null
+                        : Logo
                     }
                     movieId={movie.id}
                     movieName={movie.original_title}

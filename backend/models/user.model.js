@@ -26,6 +26,10 @@ const userSchema = mongoose.Schema({
   tokenExp: {
     type: Number,
   },
+  isAuth: {
+    type: Boolean,
+    default: false
+  }
 });
 
 userSchema.pre("save", function (next) {

@@ -1,4 +1,5 @@
 //SERVER ROUTES
+export const FAV_SERVER = 'http://localhost:5000/api/favourite';
 export const USER_SERVER = 'http://localhost:5000/api/users';
 
 
@@ -17,3 +18,4 @@ export const IMAGE_SIZE = 'w1280'
 export const POSTER_SIZE = 'w500'
 
 export const IMDB_URL = 'https://www.imdb.com/title/'
+export const IMDB_ACTOR_URL = 'https://www.imdb.com/name/'
