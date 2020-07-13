@@ -71,6 +71,7 @@ const Favorite = (props) => {
         alert("Failed to get Favorite Information");
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

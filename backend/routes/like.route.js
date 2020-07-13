@@ -4,19 +4,13 @@ const router = express.Router();
 const { isAuth } = require("../middleware/auth");
 const {
   getLikesController,
-  getDislikesController,
   upLikeController,
   unLikeController,
-  unDislikeController,
-  upDislikeController
 } = require("../controllers/like.controller");
 
 // Define Route
-router.post("/getLikes", getLikesController);
-router.post("/getDislikes", getDislikesController);
-router.post("/upLike", upLikeController);
-router.post("/unLike", unLikeController);
-router.post("/unDislike", unDislikeController);
-router.post("/upDislike", upDislikeController);
+router.post("/getLikes",isAuth, getLikesController);
+router.post("/upLike",isAuth,  upLikeController);
+router.post("/unLike",isAuth,  unLikeController);
 
 module.exports = router;

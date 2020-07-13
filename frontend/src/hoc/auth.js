@@ -25,7 +25,7 @@ export default function (ComposedClass, reload, adminRoute = null) {
           }
         }
       
-    }, [dispatch, props.history]);
+    }, [dispatch, props.history, user.isAuth, user.isAdmin]);
 
     return <ComposedClass {...props} user={user} />;
   };

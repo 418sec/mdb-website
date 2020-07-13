@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Drawer, Button } from "antd";
 
 import "./sections/Navbar.css";
-import LeftMenu from "./sections/LeftMenu";
 import RightMenu from "./sections/RightMenu";
 import Logo from "../../../assets/images/Logo.png";
 
@@ -32,9 +31,6 @@ const NavBar = () => {
         </a>
       </div>
       <div className="menu__container">
-        <div className="menu_left">
-          <LeftMenu mode="horizontal" />
-        </div>
         <div className="menu_rigth">
           <RightMenu mode="horizontal" />
         </div>
@@ -51,7 +47,6 @@ const NavBar = () => {
           onClose={onClose}
           visible={visible}
         >
-          <LeftMenu mode="inline" />
           <RightMenu mode="inline" />
         </Drawer>
       </div>

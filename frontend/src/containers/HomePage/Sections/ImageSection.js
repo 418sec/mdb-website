@@ -70,8 +70,8 @@ const ImageSection = (props) => {
           </p>
           {imdb_id ? (
             <button className="imdb-btn">
-              <a href={`${IMDB_URL}${imdb_id}`} style={{ color: "black" }} target="_blank">
-                GOTO IMDB
+              <a rel="noopener noreferrer" href={`${IMDB_URL}${imdb_id}`} style={{ color: "black" }} target="_blank">
+                IMDB
               </a>
             </button>
           ) : null}

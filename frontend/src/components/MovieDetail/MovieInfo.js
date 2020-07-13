@@ -5,7 +5,7 @@ const MovieInfo = (props) => {
   const { movie } = props;
 
   return (
-    <Descriptions title="MOVIE INFORMATION" bordered>
+    <Descriptions title="MOVIE INFORMATION" bordered style={{textAlign: "center", marginTop: "30px"}}>
       <Descriptions.Item label="TITLE">
         {movie.original_title}
       </Descriptions.Item>
@@ -13,7 +13,7 @@ const MovieInfo = (props) => {
         {movie.release_date}
       </Descriptions.Item>
       <Descriptions.Item label="REVENUE">{movie.revenue}</Descriptions.Item>
-      <Descriptions.Item label="RUNTIME">{movie.runtime}</Descriptions.Item>
+      <Descriptions.Item label="RUNTIME (MINUTE)">{movie.runtime}</Descriptions.Item>
       <Descriptions.Item label="VOTE AVERAGE" span={2}>
         {movie.vote_average}
       </Descriptions.Item>

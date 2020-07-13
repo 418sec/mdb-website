@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Col } from "antd";
 
 import { IMAGE_BASE_URL, API_URL, API_KEY, IMDB_ACTOR_URL } from "../../configs";
@@ -69,7 +70,7 @@ const Cards = (props) => {
             {bio}
           </p>
           <p style={{ textAlign: "center" }}>
-            <a href={`${IMDB_ACTOR_URL}${imdbId}`} target="_blank">Show in IMDB</a>
+            <a rel="noopener noreferrer" href={`${IMDB_ACTOR_URL}${imdbId}`} target="_blank">Show in IMDB</a>
           </p>
         </Modal>
         <div style={{ position: "relative" }} className={classes.Container}>
@@ -93,7 +94,7 @@ const Cards = (props) => {
     return (
       <Col key={id} lg={6} md={8} xs={24}>
         <div style={{ position: "relative" }}>
-          <a href={`/movie/${movieId}`}>
+          <Link to={`/movie/${movieId}`}>
             <img
               style={{
                 width: "100%",
@@ -104,7 +105,7 @@ const Cards = (props) => {
               alt={movieName}
               src={image}
             />
-          </a>
+          </Link>
           <h3
             style={{
               color: "black",

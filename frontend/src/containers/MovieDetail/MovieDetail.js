@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Button, Icon } from "antd";
+import { Row, Button } from "antd";
 import { ClipLoader, BarLoader } from "react-spinners";
 import { css } from "@emotion/core";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ import MovieInfo from "../../components/MovieDetail/MovieInfo";
 import Card from "../../components/Card/Card";
 import classes from "./MovieDetail.module.css";
 import Favourite from "./Favourite/Favourite";
-import LikeDislikes from "./LikeUnlike/LikeUnlike";
+import Like from "./Like/Like";
 import { me } from "../../actions/userActions";
 const loaderCSSForDetail = css`
   position: relative;
@@ -32,9 +32,6 @@ const MovieDetail = (props) => {
 
   const dispatch = useDispatch();
 
-  const movieVariable = {
-    movieId: movieId,
-  };
   const toggleActorView = () => {
     const endpointForCasts = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
     setLoadingForCasts(true);
@@ -55,6 +52,7 @@ const MovieDetail = (props) => {
       dispatch(me());
     }
     fetchDetail(endpoint);
+    // eslint-disable-next-line
   }, []);
 
   const fetchDetail = (endpoint) => {
@@ -87,6 +85,11 @@ const MovieDetail = (props) => {
                 movieId={movieId}
                 userFrom={localStorage.getItem("userId")}
               />
+              <Like
+                movie
+                movieId={movieId}
+                userId={localStorage.getItem("userId")}
+              />
             </div>
             <MovieInfo movie={Movie} />
             <br />
@@ -98,7 +101,7 @@ const MovieDetail = (props) => {
               }}
             >
               <Button className={classes.ShowCastBtn} onClick={toggleActorView}>
-                Show Casts
+                {!ActorToggle ? "Show Casts" : "Hide Casts"}
               </Button>
             </div>{" "}
             {ActorToggle && (
@@ -123,13 +126,6 @@ const MovieDetail = (props) => {
               </Row>
             )}
             <br />
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <LikeDislikes
-                video
-                videoId={movieId}
-                userId={localStorage.getItem("userId")}
-              />
-            </div>
           </div>
         </React.Fragment>
       ) : (

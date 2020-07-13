@@ -71,6 +71,7 @@ const HomePage = () => {
     const url = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     const index = Math.floor(Math.random(0, 1) * 19);
     fetchMovies(url, index);
+    // eslint-disable-next-line
   }, []);
 
   return (
