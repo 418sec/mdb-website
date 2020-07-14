@@ -60,7 +60,7 @@ const getFavouritedMovieController = async (req, res) => {
   try {
     const favourites = await Favourite.find({ userFrom: req.body.userFrom });
     if (favourites) {
-      return res.status(200).json({ success: true, favorites });
+      return res.status(200).json({ success: true, favourites });
     }
   } catch (error) {
     return res.status(400).json({ success: false, error });
