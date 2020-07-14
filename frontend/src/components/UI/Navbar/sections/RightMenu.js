@@ -21,7 +21,7 @@ const RightMenu = (props) => {
           <Link to="/favourite">FAVOURITE</Link>
         </Menu.Item>
         <Menu.Item key="logout">
-          <a onClick={logoutHandler}>Logout</a>
+          <Link to="/profile" style={{fontWeight: 'bold', fontSize: '17px'}}>{user.userData.username}</Link>
         </Menu.Item>
       </Menu>
     );

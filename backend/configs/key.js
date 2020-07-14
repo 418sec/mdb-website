@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 
 dotenv.config({
-  path: "./.env",
+  path: ".env",
 });
 
 if (process.env.NODE_ENV === "production") {

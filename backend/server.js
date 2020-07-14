@@ -14,7 +14,7 @@ const likeRouter = require('./routes/like.route');
 
 // Config .env to ./config/config.env
 dotenv.config({
-  path: "./.env",
+  path: "../.env",
 });
 
 // Database Connection.=
@@ -41,11 +41,11 @@ app.use("/uploads", express.static("uploads"));
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   // All the javascript and css files will be read and served from this folder
-  app.use(express.static("backend/build"));
+  app.use(express.static("frontend/build"));
 
   // index.html for all page routes    html or routing and naviagtion
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../backend", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend", "build", "index.html"));
   });
 }
 

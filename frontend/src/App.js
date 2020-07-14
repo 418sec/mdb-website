@@ -8,6 +8,7 @@ import SignIn from "./containers/Auth/SignIn/SignIn";
 import HomePage from "./containers/HomePage/HomePage";
 import DetailPage from "./containers/MovieDetail/MovieDetail";
 import FavouritePage from "./containers/FavouritePage/FavouritePage";
+import ProfilePage from "./containers/ProfilePage/ProfilePage";
 import Auth from "./hoc/auth";
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <Route exact path="/login" component={Auth(SignIn, false)}  />
           <Route exact path="/movie/:movieId" component={Auth(DetailPage, null)} />
           <Route exact path="/favourite" component={Auth(FavouritePage, null)} />
+          <Route exact path="/profile" component={Auth(ProfilePage, null)} />
         </Switch>
       </div>
     </React.Fragment>
