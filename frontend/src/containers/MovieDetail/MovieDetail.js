@@ -1,17 +1,18 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Row, Button } from "antd";
 import { ClipLoader, BarLoader } from "react-spinners";
 import { css } from "@emotion/core";
-import { useDispatch } from "react-redux";
 
-import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE } from "../../configs";
+import Comments from "./Comments/Comments";
+import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE , COMMENT_SERVER} from "../../configs";
 import ImageSection from "../HomePage/Sections/ImageSection";
 import MovieInfo from "../../components/MovieDetail/MovieInfo";
 import Card from "../../components/Card/Card";
 import classes from "./MovieDetail.module.css";
 import Favourite from "./Favourite/Favourite";
 import Like from "./Like/Like";
-import { me } from "../../actions/userActions";
+
 const loaderCSSForDetail = css`
   position: relative;
   left: 590px;
@@ -26,11 +27,13 @@ const MovieDetail = (props) => {
   const movieId = props.match.params.movieId;
   const [Movie, setMovie] = useState([]);
   const [Casts, setCasts] = useState([]);
+  const [CommentLists, setCommentLists] = useState([]);
   const [LoadingForMovie, setLoadingForMovie] = useState(true);
   const [LoadingForCasts, setLoadingForCasts] = useState(false);
   const [ActorToggle, setActorToggle] = useState(false);
-
-  const dispatch = useDispatch();
+  const movieVariable = {
+    movieId: movieId,
+  };
 
   const toggleActorView = () => {
     const endpointForCasts = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
@@ -38,7 +41,6 @@ const MovieDetail = (props) => {
     fetch(endpointForCasts)
       .then((result) => result.json())
       .then((result) => {
-        console.log(result);
         setCasts(result.cast);
         setLoadingForCasts(false);
       });
@@ -47,11 +49,17 @@ const MovieDetail = (props) => {
 
   useEffect(() => {
     const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`;
-    const userId = localStorage.getItem("userId");
-    if (userId) {
-      dispatch(me());
-    }
     fetchDetail(endpoint);
+
+    axios
+      .post(`${COMMENT_SERVER}/comments`, movieVariable)
+      .then((response) => {
+        if (response.data.success) {
+          setCommentLists(response.data.comments);
+        } else {
+          alert("Failed to get comments Info");
+        }
+      });
     // eslint-disable-next-line
   }, []);
 
@@ -63,6 +71,9 @@ const MovieDetail = (props) => {
         setLoadingForMovie(false);
       })
       .catch((error) => setLoadingForMovie(true));
+  };
+  const updateComment = (newComment) => {
+    setCommentLists(CommentLists.concat(newComment));
   };
 
   return (
@@ -126,6 +137,12 @@ const MovieDetail = (props) => {
               </Row>
             )}
             <br />
+            <Comments
+              movieTitle={Movie.original_title}
+              CommentLists={CommentLists}
+              postId={movieId}
+              refreshFunction={updateComment}
+            />
           </div>
         </React.Fragment>
       ) : (

@@ -1,7 +1,7 @@
 const { User } = require("../models/user.model");
 
 const registerController = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, image } = req.body;
 
   const user = await User.findOne({ username });
   if (user) {
@@ -12,6 +12,7 @@ const registerController = async (req, res) => {
     const user = new User({
       username,
       password,
+      image
     });
     const success = user.save();
     if (success) {
