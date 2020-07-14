@@ -5,7 +5,13 @@ import { ClipLoader, BarLoader } from "react-spinners";
 import { css } from "@emotion/core";
 
 import Comments from "./Comments/Comments";
-import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE , COMMENT_SERVER} from "../../configs";
+import {
+  API_URL,
+  API_KEY,
+  IMAGE_BASE_URL,
+  IMAGE_SIZE,
+  COMMENT_SERVER,
+} from "../../configs";
 import ImageSection from "../HomePage/Sections/ImageSection";
 import MovieInfo from "../../components/MovieDetail/MovieInfo";
 import Card from "../../components/Card/Card";
@@ -51,15 +57,13 @@ const MovieDetail = (props) => {
     const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`;
     fetchDetail(endpoint);
 
-    axios
-      .post(`${COMMENT_SERVER}/comments`, movieVariable)
-      .then((response) => {
-        if (response.data.success) {
-          setCommentLists(response.data.comments);
-        } else {
-          alert("Failed to get comments Info");
-        }
-      });
+    axios.post(`${COMMENT_SERVER}/comments`, movieVariable).then((response) => {
+      if (response.data.success) {
+        setCommentLists(response.data.comments);
+      } else {
+        alert("Failed to get comments Info");
+      }
+    });
     // eslint-disable-next-line
   }, []);
 
@@ -121,14 +125,16 @@ const MovieDetail = (props) => {
                   Casts.map(
                     (cast, index) =>
                       cast.profile_path && (
-                        <Card
-                          id={index}
-                          actor
-                          castId={cast.id}
-                          name={cast.name}
-                          image={cast.profile_path}
-                          characterName={cast.character}
-                        />
+                        <React.Fragment key={index}>
+                          <Card
+                            actor
+                            index={index}
+                            castId={cast.id}
+                            name={cast.name}
+                            image={cast.profile_path}
+                            characterName={cast.character}
+                          />
+                        </React.Fragment>
                       )
                   )
                 ) : (

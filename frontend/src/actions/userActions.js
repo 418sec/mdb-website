@@ -44,7 +44,6 @@ const me = (token) => async (dispatch) => {
     const response = await axios.get(`${USER_SERVER}/me`, {
       headers: { Authorization: "Bearer " + token },
     });
-    console.log(response.data);
     dispatch({ type: USER_AUTH_SUCCESS, payload: response.data });
   } catch (error) {
     dispatch({ type: USER_AUTH_FAIL, payload: error });

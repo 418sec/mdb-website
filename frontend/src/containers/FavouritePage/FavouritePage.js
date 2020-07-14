@@ -17,6 +17,7 @@ const FavouritePage = () => {
 
   useEffect(() => {
     fetchFavouredMovie();
+     // eslint-disable-next-line
   }, []);
 
   const fetchFavouredMovie = () => {
@@ -53,7 +54,7 @@ const FavouritePage = () => {
     const content = (
       <div key={index}>
         {favourite.moviePost ? (
-          <img src={`${IMAGE_BASE_URL}${POSTER_SIZE}${favourite.moviePost}`} />
+          <img src={`${IMAGE_BASE_URL}${POSTER_SIZE}${favourite.moviePost}`} alt={favourite.title} />
         ) : (
           <Logo />
         )}
