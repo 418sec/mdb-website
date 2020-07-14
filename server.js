@@ -6,7 +6,6 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
-const configs = require("./configs/key");
 const userRouter = require('./routes/user.route');
 const commentRouter = require('./routes/comment.route');
 const favouriteRouter = require('./routes/favourite.route');
