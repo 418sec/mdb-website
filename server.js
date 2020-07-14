@@ -19,7 +19,7 @@ dotenv.config({
 
 // Database Connection.=
 mongoose
-  .connect(configs.mongoURI, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
