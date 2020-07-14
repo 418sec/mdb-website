@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const path = require("path");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
@@ -13,7 +12,7 @@ const likeRouter = require('./routes/like.route');
 
 // Config .env to ./config/config.env
 dotenv.config({
-  path: "../.env",
+  path: "./.env",
 });
 
 // Database Connection.=
