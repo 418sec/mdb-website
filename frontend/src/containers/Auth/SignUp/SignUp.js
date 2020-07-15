@@ -47,8 +47,6 @@ const SignUp = (props) => {
       props.history.push("/login");
     }
   }
-  console.log(userRegister);
-
   return (
     <Formik
       initialValues={{
@@ -111,7 +109,11 @@ const SignUp = (props) => {
                   </h2>
                 ) : null}
                 <Form
-                  style={{ minWidth: "375px" }}
+                  style={{
+                    minWidth: "205px",
+                    marginBottom: "150px",
+                    fontWeight: "bold",
+                  }}
                   {...formItemLayout}
                   onSubmit={handleSubmit}
                 >

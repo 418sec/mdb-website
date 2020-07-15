@@ -1,14 +1,13 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
-const userRouter = require('./routes/user.route');
-const commentRouter = require('./routes/comment.route');
-const favouriteRouter = require('./routes/favourite.route');
-const likeRouter = require('./routes/like.route');
+const userRouter = require("./routes/user.route");
+const commentRouter = require("./routes/comment.route");
+const favouriteRouter = require("./routes/favourite.route");
+const likeRouter = require("./routes/like.route");
 
 // Config .env to ./config/config.env
 dotenv.config({
@@ -32,21 +31,16 @@ mongoose
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cookieParser());
-app.use("/uploads", express.static("uploads"));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
-  // Set static folder
-  // All the javascript and css files will be read and served from this folder
   app.use(express.static("frontend/build"));
 }
 
-app.use('/api/users', userRouter);
-app.use('/api/comment', commentRouter);
-app.use('/api/favourite', favouriteRouter);
-app.use('/api/like', likeRouter);
-
+app.use("/api/users", userRouter);
+app.use("/api/comment", commentRouter);
+app.use("/api/favourite", favouriteRouter);
+app.use("/api/like", likeRouter);
 
 const port = process.env.PORT || 5000;
 

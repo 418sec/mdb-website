@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { css } from "@emotion/core";
 
+import './SignIn.css'
 import { signInUser } from "../../../actions/userActions";
 
 const loaderCSS = css`
@@ -97,8 +98,8 @@ const SignIn = (props) => {
                   </h2>
                 ) : null}
 
-                <form onSubmit={handleSubmit} style={{ width: "350px" }}>
-                  <Form.Item required>
+                <form onSubmit={handleSubmit} style={{ width: "300px", marginBottom: '200px', fontWeight: 'bold', marginRight: '20px' }}>
+                  <Form.Item required label="Username">
                     <Input
                       id="username"
                       placeholder="Enter your username"
@@ -117,7 +118,7 @@ const SignIn = (props) => {
                     )}
                   </Form.Item>
 
-                  <Form.Item required>
+                  <Form.Item required label="Password">
                     <Input
                       id="password"
                       placeholder="Enter your password"
@@ -144,7 +145,9 @@ const SignIn = (props) => {
                     >
                       Remember me
                     </Checkbox>
+                    
                     <div>
+                    <br />
                       <Button
                         type="primary"
                         htmlType="submit"

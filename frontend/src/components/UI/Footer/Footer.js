@@ -4,9 +4,9 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div className="footer">
+    <footer>
       <p>Copyright © 2020 by M-DB. All rights reserved.</p>
-    </div>
+    </footer>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Col } from "antd";
+import { Col, Popover } from "antd";
 
 import {
   IMAGE_BASE_URL,
@@ -9,15 +9,10 @@ import {
   IMDB_ACTOR_URL,
 } from "../../configs";
 import classes from "./Card.module.css";
-import Modal from "../UI/Modal/Modal";
 
 const Cards = (props) => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [Name, setName] = useState("");
   const [bio, setBio] = useState("");
-  const [birthplace, setBirthplace] = useState("");
   const [imdbId, setImdbId] = useState("");
-  const [profilePic, setProfilePic] = useState("");
   const [loading, setLoading] = useState(false);
 
   const {
@@ -35,123 +30,116 @@ const Cards = (props) => {
   const POSTER_SIZE = "w154";
 
   const popupHandler = () => {
-    setShowPopup(true);
     const endpoint = `${API_URL}person/${castId}/?api_key=${API_KEY}&language=en-US`;
     setLoading(true);
     fetch(endpoint)
       .then((result) => result.json())
       .then((result) => {
-        setName(result.also_known_as[0]);
         setBio(result.biography);
         setImdbId(result.imdb_id);
-        setProfilePic(result.profile_path);
-        setBirthplace(result.place_of_birth);
         setLoading(false);
       })
       .catch((err) => setLoading(false));
   };
-  const popupCloseHandler = () => {
-    setShowPopup(false);
-  };
-  if (actor) {  
-    return (
-        <Col lg={6} md={8} xs={24}>
-          <Modal show={showPopup} modalClosed={popupCloseHandler}>
-            {!loading ? (
-              <React.Fragment key={props.index}>
-                <Col lg={8} md={10} xs={100}>
-                  <img
-                    className={classes.ImagePopup}
-                    alt={name}
-                    src={`${IMAGE_BASE_URL}${POSTER_SIZE}${profilePic}`}
-                  />
-                </Col>
-                <h2 style={{ color: "white", textAlign: "center" }}>
-                  Name:&nbsp;&nbsp;{name}
-                </h2>
-                <h2 style={{ color: "white", textAlign: "center" }}>
-                  Known as:&nbsp;&nbsp;{Name}
-                </h2>
-                <h2 style={{ color: "white", textAlign: "center" }}>
-                  Birth Place:&nbsp;&nbsp;{birthplace}
-                </h2>
-                <p
-                  style={{
-                    color: "aqua",
-                    textAlign: "center",
-                    marginBottom: "10px",
-                  }}
-                >
-                  {bio}
-                </p>
-                <p style={{ textAlign: "center" }}>
-                  <a
-                    rel="noopener noreferrer"
-                    href={`${IMDB_ACTOR_URL}${imdbId}`}
-                    target="_blank"
-                  >
-                    Show in IMDB
-                  </a>
-                </p>{" "}
-              </React.Fragment>
-            ) : (
-              <div
-                style={{
-                  color: "white",
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  fontSize: "25px",
-                  marginTop: "150px",
-                }}
+
+  if (actor) {
+    const content = (
+      <React.Fragment>
+        {!loading ? (
+          <React.Fragment key={props.index}>
+            <p
+              style={{
+                color: "black",
+                textAlign: "center",
+                marginBottom: "10px",
+                fontWeight: "bold",
+                fontSize: "20px",
+              }}
+            >
+              {name}
+            </p>
+            <p
+              style={{
+                color: "black",
+                textAlign: "center",
+                marginBottom: "10px",
+                fontWeight: "bold",
+                fontSize: "15px",
+              }}
+            >
+              {bio}
+            </p>
+            <p style={{ textAlign: "center" }}>
+              <a
+                rel="noopener noreferrer"
+                href={`${IMDB_ACTOR_URL}${imdbId}`}
+                target="_blank"
               >
-                LOADING...
-              </div>
-            )}
-          </Modal>
+                Show in IMDB
+              </a>
+            </p>{" "}
+          </React.Fragment>
+        ) : null}
+      </React.Fragment>
+    );
+    return (
+      <Col lg={6} md={8} xs={24}>
+        <Popover
+          content={content}
+          title={``}
+          placement="bottom"
+          trigger="click"
+          style={{ width: "30px" }}
+        >
           <div style={{ position: "relative" }} className={classes.Container}>
-            <li style={{ listStyle: "none" }} onClick={popupHandler}>
+            <li style={{ listStyle: "none" }}>
               <img
                 className={classes.Image}
                 alt={characterName}
                 src={`${IMAGE_BASE_URL}${POSTER_SIZE}${image}`}
               />
             </li>
-            <div className={classes.Middle}>
-              <div className={classes.Text}>{name}</div>
-            </div>
+            <li className={classes.Middle} onClick={popupHandler}>
+              <div className={classes.Text}>Show Bio</div>
+            </li>
             <h3 style={{ textAlign: "center", fontWeight: "bold" }}>
               {characterName}
             </h3>
           </div>
-        </Col>
+        </Popover>
+      </Col>
     );
   } else {
     return (
       <Col key={id} lg={6} md={8} xs={24}>
-        <div style={{ position: "relative" }}>
-          <Link to={`/movie/${movieId}`}>
-            <img
+        <div style={{ position: "relative" }} className={classes.Container}>
+          <li style={{ listStyle: "none" }}>
+            <Link to={`/movie/${movieId}`}>
+              <img
+                style={{
+                  width: "100%",
+                  height: "320px",
+                  border: "3px solid black",
+                  borderRadius: "5px",
+                }}
+                alt={movieName}
+                src={image}
+                className={classes.Image}
+              />
+            </Link>
+
+            <h3
               style={{
-                width: "100%",
-                height: "320px",
-                border: "3px solid black",
-                borderRadius: "5px",
+                color: "black",
+                marginLeft: "2px",
+                fontFamily: "verdana, Arial",
+                fontWeight: "bold",
+                fontSize: "120%",
               }}
-              alt={movieName}
-              src={image}
-            />
-          </Link>
-          <h3
-            style={{
-              color: "black",
-              marginLeft: "2px",
-              fontFamily: "verdana, Arial",
-              fontWeight: "bold",
-              fontSize: "120%",
-            }}
-          >
-            {title}
-          </h3>
+            >
+              {title}
+            </h3>
+          </li>
           <h4
             style={{
               color: "black",

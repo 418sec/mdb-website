@@ -14,7 +14,7 @@ const MovieInfo = (props) => {
       </Descriptions.Item>
       <Descriptions.Item label="REVENUE">{movie.revenue}</Descriptions.Item>
       <Descriptions.Item label="RUNTIME (MINUTE)">{movie.runtime}</Descriptions.Item>
-      <Descriptions.Item label="VOTE AVERAGE" span={2}>
+      <Descriptions.Item label="VOTE AVERAGE">
         {movie.vote_average}
       </Descriptions.Item>
       <Descriptions.Item label="VOTE COUNT">

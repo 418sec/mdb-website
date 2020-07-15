@@ -153,6 +153,7 @@ const MovieDetail = (props) => {
         </React.Fragment>
       ) : (
         <ClipLoader css={loaderCSSForDetail} size={150} loading />
+       
       )}
     </div>
   );

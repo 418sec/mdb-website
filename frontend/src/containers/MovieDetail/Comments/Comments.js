@@ -78,6 +78,7 @@ const Comments = (props) => {
           placeholder="write some comments"
         />
         <br />
+        
       </form>
       <Button className={classes.CommentBtn} onClick={onSubmit}>
         Comment

@@ -15,7 +15,6 @@ const NavBar = () => {
   const onClose = () => {
     setVisible(false);
   };
-
   return (
     <nav
       className="menu"
@@ -38,12 +37,12 @@ const NavBar = () => {
           className="menu__mobile-button"
           type="primary"
           onClick={showDrawer}
-        ></Button>
+        >MENU</Button>
         <Drawer
-          title="Basic Drawer"
+          title="MENU ITEMS"
           placement="right"
           className="menu_drawer"
-          closable={false}
+          closable={true}
           onClose={onClose}
           visible={visible}
         >

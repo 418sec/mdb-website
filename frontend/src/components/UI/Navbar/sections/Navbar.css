@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 .menu {
   padding: 0 20px;
@@ -6,7 +6,7 @@
   overflow: auto;
   box-shadow: 0 0 30px #f3f1f1;
   background-color: black;
-  top:-1px
+  top: -1px;
 }
 
 .menu__logo {
@@ -70,8 +70,14 @@
 }
 
 @media (max-width: 767px) {
-  .menu__mobile-button {
+  .menu__mobile-button.ant-btn-primary {
     display: inline-block !important;
+    width: 20%;
+    color: white;
+    background-color: black;
+    margin-top: 20px;
+    font-weight: bold;
+    margin-right: 10px;
   }
 
   .menu_left,
@@ -80,7 +86,7 @@
   }
 
   .menu__logo a {
-    margin-left: -20px;
+    margin-left: -40px;
   }
 
   .menu__container .ant-menu-item,
@@ -89,6 +95,9 @@
   }
 
   .menu__logo a {
-    padding: 10px 20px;
+    padding: 20px 40px;
+  }
+  .menu_drawer {
+    font-weight: bold;
   }
 }
