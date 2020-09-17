@@ -9,7 +9,6 @@ mdb stands for movie database. It is a website that contains the movies informat
      - `npm start`
 
    - To start backend `Express` on `Node` server:
-     - `cd backend
      - `npm i`
      - `npm start`
 
