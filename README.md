@@ -1,16 +1,7 @@
 # mdb-website
 mdb stands for movie database. It is a website that contains the movies informations.
 
-### Here the processs to run an application locally:
-
-   - To start frontend `React` on `Node` server:
-     - `cd frontend`
-     - `npm i`
-     - `npm start`
-
-   - To start backend `Express` on `Node` server:
-     - `npm i`
-     - `npm start`
+![movie-db](https://user-images.githubusercontent.com/50628520/112197939-b6eb6400-8c34-11eb-8650-6dfd3e41662f.jpg)
 
 
 Link to website: https://moviedb66.herokuapp.com/
