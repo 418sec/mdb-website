@@ -10,9 +10,6 @@ import {
   USER_AUTH_REQUEST,
   USER_AUTH_SUCCESS,
   USER_AUTH_FAIL,
-  USER_SIGNOUT_REQUEST,
-  USER_SIGNOUT_SUCCESS,
-  USER_SIGNOUT_FAIL,
 } from "../constants/userConstants";
 import { USER_SERVER } from "../configs";
 
@@ -50,19 +47,9 @@ const me = (token) => async (dispatch) => {
   }
 };
 
-const signOut = (token) => async (dispatch) => {
-  dispatch({ type: USER_SIGNOUT_REQUEST });
-  try {
-    const response = await axios.get(`${USER_SERVER}/logout`, {
-      headers: { Authorization: "Bearer " + token },
-    });
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-    window.location.reload(false);
-    dispatch({ type: USER_SIGNOUT_SUCCESS, payload: response.data });
-  } catch (error) {
-    dispatch({ type: USER_SIGNOUT_FAIL, payload: error });
-  }
+const signOut = () => (_dispatch) => {
+  localStorage.removeItem("userId");
+  localStorage.removeItem("token");
 };
 
 export { registerUser, signInUser, me, signOut };

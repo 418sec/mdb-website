@@ -12,7 +12,7 @@ const registerController = async (req, res) => {
     const user = new User({
       username,
       password,
-      image
+      image,
     });
     const success = user.save();
     if (success) {
@@ -73,15 +73,4 @@ const me = async (req, res) => {
   });
 };
 
-const logOutController = (req, res) => {
-  User.findById(req.user._id).then((user) => {
-    if (user) {
-      user.token = "";
-      user.isAuth = false;
-      user.save();
-      res.status(200).json({ success: true });
-    }
-  });
-};
-
-module.exports = { registerController, loginController, me, logOutController };
+module.exports = { registerController, loginController, me };

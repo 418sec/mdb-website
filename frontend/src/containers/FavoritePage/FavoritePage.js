@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Popover } from "antd";
 import axios from "axios";
-import "./Favourite.css";
+import "./Favorite.css";
 import { useSelector } from "react-redux";
 import { IMAGE_BASE_URL, POSTER_SIZE, FAV_SERVER } from "../../configs";
 import Logo from "../../assets/images/Logo.png";
 
 const { Title } = Typography;
 
-const FavouritePage = () => {
+const FavoritePage = () => {
   const user = useSelector((state) => state.user);
 
-  const [Favourites, setFavourites] = useState([]);
+  const [Favorites, setFavorites] = useState([]);
   const [Loading, setLoading] = useState(true);
   const variable = { userFrom: localStorage.getItem("userId") };
 
   useEffect(() => {
     fetchFavouredMovie();
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   const fetchFavouredMovie = () => {
@@ -25,7 +25,7 @@ const FavouritePage = () => {
       .post(`${FAV_SERVER}/getFavouritedMovie`, variable)
       .then((response) => {
         if (response.data.success) {
-          setFavourites(response.data.favourites);
+          setFavorites(response.data.favourites);
           setLoading(false);
         } else {
           alert("Failed to get subscription videos");
@@ -50,11 +50,14 @@ const FavouritePage = () => {
       });
   };
 
-  const renderCards = Favourites.map((favourite, index) => {
+  const renderCards = Favorites.map((favorite, index) => {
     const content = (
       <div key={index}>
-        {favourite.moviePost ? (
-          <img src={`${IMAGE_BASE_URL}${POSTER_SIZE}${favourite.moviePost}`} alt={favourite.title} />
+        {favorite.moviePost ? (
+          <img
+            src={`${IMAGE_BASE_URL}${POSTER_SIZE}${favorite.moviePost}`}
+            alt={favorite.title}
+          />
         ) : (
           <Logo />
         )}
@@ -63,14 +66,14 @@ const FavouritePage = () => {
 
     return (
       <tr key={index}>
-        <Popover content={content} title={`${favourite.movieTitle}`}>
-          <td style={{ color: "black" }}>{favourite.movieTitle}</td>
+        <Popover content={content} title={`${favorite.movieTitle}`}>
+          <td style={{ color: "black" }}>{favorite.movieTitle}</td>
         </Popover>
 
-        <td style={{ color: "black" }}>{favourite.movieRunTime} mins</td>
+        <td style={{ color: "black" }}>{favorite.movieRunTime} mins</td>
         <td style={{ color: "black" }}>
           <button
-            onClick={() => onClickDelete(favourite.movieId, favourite.userFrom)}
+            onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}
           >
             {" "}
             Remove{" "}
@@ -82,7 +85,7 @@ const FavouritePage = () => {
 
   return (
     <div style={{ width: "85%", margin: "3rem auto" }}>
-      <Title level={2}> My Favourite Movies </Title>
+      <Title level={2}> My Favorite Movies </Title>
       <hr />
       {!user.userData ? (
         <div
@@ -117,4 +120,4 @@ const FavouritePage = () => {
   );
 };
 
-export default FavouritePage;
+export default FavoritePage;

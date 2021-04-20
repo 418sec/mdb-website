@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { css } from "@emotion/core";
 
-import './SignIn.css'
+import "./SignIn.css";
 import { signInUser } from "../../../actions/userActions";
 
 const loaderCSS = css`
@@ -35,7 +35,7 @@ const SignIn = (props) => {
       return <Redirect to="/" />;
     }
   }
-  //console.log(userSignIn)
+
   const initialUsername = localStorage.getItem("rememberMe")
     ? localStorage.getItem("rememberMe")
     : "";
@@ -98,7 +98,15 @@ const SignIn = (props) => {
                   </h2>
                 ) : null}
 
-                <form onSubmit={handleSubmit} style={{ width: "300px", marginBottom: '200px', fontWeight: 'bold', marginRight: '20px' }}>
+                <form
+                  onSubmit={handleSubmit}
+                  style={{
+                    width: "300px",
+                    marginBottom: "200px",
+                    fontWeight: "bold",
+                    marginRight: "20px",
+                  }}
+                >
                   <Form.Item required label="Username">
                     <Input
                       id="username"
@@ -145,9 +153,8 @@ const SignIn = (props) => {
                     >
                       Remember me
                     </Checkbox>
-                    
                     <div>
-                    <br />
+                      <br />
                       <Button
                         type="primary"
                         htmlType="submit"
