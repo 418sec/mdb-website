@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
+const secret = process.env.JWT_SECRET;
 
 const userSchema = mongoose.Schema({
   username: {
@@ -66,7 +67,7 @@ userSchema.methods.generateToken = function (cb) {
       role: user.role,
       image: user.image,
     },
-    "secret",
+    secret,
     {
       expiresIn: "7d",
     }
